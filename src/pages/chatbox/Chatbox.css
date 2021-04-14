@@ -1,0 +1,18 @@
+.chatbox-main-container {
+    margin-top: 5%;
+    max-width: 70% !important;
+    min-height: 400px !important;
+    border: 1px black solid;
+    border-radius: 10px;
+    margin-bottom: 5%;
+}
+
+.chatbox-container {
+    height: 400px;
+}
+
+.input-group {
+    position: relative;
+    bottom: 0;
+}
+
