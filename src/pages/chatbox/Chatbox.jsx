@@ -1,43 +1,28 @@
-import { useState } from 'react';
 import './Chatbox.css';
+import Chatroom from './Chatroom';
+import ChannelList from './ChannelList';
 import UserPreferencesModal from './UserPreferencesModal';
-import ChatMessage from './ChatMessage';
-import { Container, InputGroup, FormControl, Button } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { addMessage, selectMessages } from '../../state/messageList/messageListSlice';
+import { Container, Row, Col } from 'react-bootstrap';
+
+import { useSelector } from 'react-redux';
+import { selectChannel, selectCurrentChannelId } from '../../state/channelList/channelListSlice';
 
 const Chatbox = () => {
-    const [message, setMessage] = useState('');
-    const dispatch = useDispatch();
-    const messageList = useSelector(selectMessages);
-
-    const handleSendMessage = () => {
-        let user = localStorage.getItem('user');
-        if (!user) return alert('You are not logged in!');
-        dispatch(addMessage({ message, user }));
-    }
+    const channelList = useSelector(selectChannel);
+    let currentChannelId = useSelector(selectCurrentChannelId);
+    let currentChannel = channelList.find(channel => channel.id === currentChannelId);
 
     return (
         <>
             <Container className="chatbox-main-container">
-                <Container className="chatbox-container">
-                    {
-                        messageList.map((messageObj, index) => {
-                            return <ChatMessage messageData={messageObj} />
-                        })
-                    }
-                </Container>
-                <InputGroup className="mb-3">
-                    <FormControl
-                        onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Enter your message..."
-                        aria-label="The message to send in the chatbox..."
-                        aria-describedby="basic-addon2"
-                    />
-                    <InputGroup.Append>
-                        <Button onClick={handleSendMessage} variant="outline-secondary">Send</Button>
-                    </InputGroup.Append>
-                </InputGroup>
+                <Row>
+                    <Col>
+                        <ChannelList channels={channelList} />
+                    </Col>
+                    <Col xs={10}>
+                        <Chatroom channel={currentChannel} />
+                    </Col>
+                </Row>
             </Container>
             <UserPreferencesModal />
         </>

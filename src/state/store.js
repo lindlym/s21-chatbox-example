@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import messageListReducer from './messageList/messageListSlice';
+import channelListReducer from './channelList/channelListSlice';
 
 export const store = configureStore({
   reducer: {
-    messageList: messageListReducer
+    channelList: channelListReducer
   },
 });

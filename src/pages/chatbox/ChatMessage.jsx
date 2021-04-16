@@ -2,7 +2,7 @@ import React from 'react';
 import { Media } from 'react-bootstrap';
 
 const ChatMessage = (props) => {
-    let { message, timestamp, user } = props.messageData;
+    let { message, user } = props.messageData;
     user = JSON.parse(user);
 
     return (
@@ -17,7 +17,6 @@ const ChatMessage = (props) => {
             <Media.Body>
                 <h5 className="chat-message-user-name">{user.username}</h5>
                 <p className="chat-message-user-message">{message}</p>
-                {/* <tiny>{timestamp.toLocaleString(2)}</tiny> */}
             </Media.Body>
         </Media>
     );
